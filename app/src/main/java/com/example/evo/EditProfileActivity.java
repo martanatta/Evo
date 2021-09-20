@@ -41,10 +41,8 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-
     public static final String APP_PREFERENCES = "mysettings";
     final String KEY_RADIOBUTTON_INDEX = "SAVED_RADIO_BUTTON_INDEX";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,25 +52,17 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         settings = this.getSharedPreferences(prefsFiles, MODE_PRIVATE);
         radioGroup = findViewById(R.id.radioGroup);
         mDisplayDate = findViewById(R.id.date_textView);
-
-
-        radioGroup
-                .setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
+        radioGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
 
         LoadPreferences();
     }
 
     RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
-
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-            RadioButton checkedRadioButton = (RadioButton) radioGroup
-                    .findViewById(checkedId);
+            RadioButton checkedRadioButton = (RadioButton) radioGroup.findViewById(checkedId);
             int checkedIndex = radioGroup.indexOfChild(checkedRadioButton);
-
             SavePreferences(KEY_RADIOBUTTON_INDEX, checkedIndex);
-
 
             mDisplayDate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,6 +81,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
                     dialog.show();
                 }
             });
+
             mDateSetListener = new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
