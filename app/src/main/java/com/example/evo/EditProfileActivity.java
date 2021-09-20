@@ -41,6 +41,11 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
     RadioGroup radioGroup;
     RadioButton radioButton;
 
+
+    public static final String APP_PREFERENCES = "mysettings";
+    final String KEY_RADIOBUTTON_INDEX = "SAVED_RADIO_BUTTON_INDEX";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,34 +55,73 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         radioGroup = findViewById(R.id.radioGroup);
         mDisplayDate = findViewById(R.id.date_textView);
 
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(
-                        EditProfileActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDateSetListener,
-                        year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                month = month + 1;
-                Log.d(TAG, "onDateSet: mm//dd//yyy: " + day + "/" + month + "/" + year);
+        radioGroup
+                .setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
 
-                String date = day + "/" + month + "/" + year;
-                mDisplayDate.setText(date);
-            }
-        };
+        LoadPreferences();
     }
+
+    RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+            RadioButton checkedRadioButton = (RadioButton) radioGroup
+                    .findViewById(checkedId);
+            int checkedIndex = radioGroup.indexOfChild(checkedRadioButton);
+
+            SavePreferences(KEY_RADIOBUTTON_INDEX, checkedIndex);
+
+
+            mDisplayDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar cal = Calendar.getInstance();
+                    int year = cal.get(Calendar.YEAR);
+                    int month = cal.get(Calendar.MONTH);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dialog = new DatePickerDialog(
+                            EditProfileActivity.this,
+                            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                            mDateSetListener,
+                            year, month, day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                }
+            });
+            mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int day) {
+                    month = month + 1;
+                    Log.d(TAG, "onDateSet: mm//dd//yyy: " + day + "/" + month + "/" + year);
+
+                    String date = day + "/" + month + "/" + year;
+                    mDisplayDate.setText(date);
+                }
+            };
+        }
+    };
+
+    private void SavePreferences(String key, int value) {
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                APP_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
+    private void LoadPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                APP_PREFERENCES, MODE_PRIVATE);
+        int savedRadioIndex = sharedPreferences.getInt(
+                KEY_RADIOBUTTON_INDEX, 0);
+        RadioButton savedCheckedRadioButton = (RadioButton) radioGroup
+                .getChildAt(savedRadioIndex);
+        savedCheckedRadioButton.setChecked(true);
+    }
+
 
     public void backOnProfile(View view) {
         onBackPressed();
@@ -146,6 +190,7 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         EditText countryEdit = findViewById(R.id.country_editText);
         Country = countryEdit.getText().toString();
         prefEditor.putString(prefCountry, Country);
+
 
         EditText emailEdit = findViewById(R.id.Email_editText);
         String email = emailEdit.getText().toString();

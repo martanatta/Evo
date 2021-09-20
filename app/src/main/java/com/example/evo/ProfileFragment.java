@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.example.evo.EditProfileActivity.City;
+import static com.example.evo.EditProfileActivity.Country;
 import static com.example.evo.EditProfileActivity.Name;
 import static com.example.evo.EditProfileActivity.Surname;
 import static com.example.evo.MainActivity.musicFiles;
@@ -41,6 +43,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
             TextView nameSP = view.findViewById(R.id.users_name);
             nameSP.setText(Name + " " + Surname);
+
+            TextView nameCityCountry = view.findViewById(R.id.users_city);
+            nameCityCountry.setText(City + ", " + Country);
 //        }
         return view;
     }
