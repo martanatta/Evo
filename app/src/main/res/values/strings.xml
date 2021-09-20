@@ -1,0 +1,44 @@
+<resources>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="app_name">Evo</string>
+    <string name="tagline">Центр развития личности</string>
+
+    <string name="nice_to_see">Рады приветствовать!</string>
+    <string name="meditate_focus">Медитируй. Фокусируйся на важном. Живи здоровой жизнью.</string>
+    <string name="enter_by_email">Войти через Email</string>
+    <string name="dont_have_an_account">Нет учетной записи?</string>
+    <string name="sign_up"> Зарегистрироваться</string>
+
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="sign_up_access">Зарегистрируйтесь, чтобы получить доступ ко всем нашим медитациям.</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="enter">Войти</string>
+    <string name="dont_have_an_account_yet">Ещё нет аккаунта? </string>
+
+    <string name="registration">Регистрация</string>
+    <string name="name_login_password">Напишите свое имя, логин и пароль</string>
+    <string name="name">Имя</string>
+    <string name="have_an_account">Уже есть аккаунт?</string>
+
+    <string name="good_afternoon">Доброго дня,</string>
+    <string name="how_do_you_feel">Как Вы себя чувствуете сегодня?</string>
+    <string name="calm">Спокойствие</string>
+    <string name="relax">Расслабление</string>
+    <string name="focus">Фокус</string>
+    <string name="body_of_light">Тело света</string>
+    <string name="personal_development">Развитие личности через развитие знергетического поля.</string>
+
+    <string name="title_of_sounds">Иногда самое продуктивное, что Вы можете сделать - это расслабиться.</string>
+    <string name="start">начать</string>
+
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+</resources>

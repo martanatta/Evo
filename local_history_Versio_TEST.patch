@@ -1,0 +1,16 @@
+Index: app/src/main/java/com/example/evo/ListItemAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/evo/ListItemAdapter.java	(date 1626418809948)
++++ app/src/main/java/com/example/evo/ListItemAdapter.java	(date 1626418809948)
+@@ -45,7 +45,7 @@
+         holder.itemView.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+-                mClickListener.ItemClickListenerMethod(position);
++                mClickListener.ItemClickListenerMethod(item,position);
+             }
+         });
+     }
