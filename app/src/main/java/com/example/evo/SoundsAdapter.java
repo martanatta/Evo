@@ -65,7 +65,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
             album_art = itemView.findViewById(R.id.img_forest);
             file_name = itemView.findViewById(R.id.text_forest);
             listOfListeners = itemView.findViewById(R.id.num_of_list1);
-            lengthOfSongs = itemView.findViewById(R.id.songs_length);
+//            lengthOfSongs = itemView.findViewById(R.id.songs_length);
         }
     }
 }
