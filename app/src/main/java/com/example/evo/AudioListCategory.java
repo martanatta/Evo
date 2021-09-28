@@ -1,19 +1,19 @@
 package com.example.evo;
 
-public class AudioList {
+public class AudioListCategory {
     String path;
     String title;
     String album;
     String duration;
 
-    public AudioList(String path, String title, String album, String duration) {
+    public AudioListCategory(String path, String title, String album, String duration) {
         this.path = path;
         this.title = title;
         this.album = album;
         this.duration = duration;
     }
 
-    public AudioList() {
+    public AudioListCategory() {
     }
 
     public String getPath() {

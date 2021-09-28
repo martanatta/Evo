@@ -32,7 +32,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
     private ImageView imageOfSongs, btnNext, btnPrev, randomBtn, repeatBtn, playPauseBtn, favoriteBtn, shareBtn;
     private SeekBar seekBar;
     private int position = -1;
-    public static ArrayList<AudioList> listSong = new ArrayList<>();
+    public static ArrayList<AudioListCategory> listSong = new ArrayList<>();
     public static Uri uri;
     public static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();

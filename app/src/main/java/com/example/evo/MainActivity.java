@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     MeowBottomNavigation bottomNavigation;
 
     public static final int REQUEST_CODE = 1;
-    static ArrayList<AudioList> musicFiles;
+    static ArrayList<AudioListCategory> musicFiles;
     static boolean shuffleBoolean = false, repeatBoolean = false;
 
     @Override
@@ -101,22 +100,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE) {
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == REQUEST_CODE) {
+//
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                musicFiles = getAllAudio(this);
+//
+//            } else {
+//                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+//            }
+//        }
+//    }
 
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                musicFiles = getAllAudio(this);
-
-            } else {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-            }
-        }
-    }
-
-    public static ArrayList<AudioList> getAllAudio(Context context) {
-        ArrayList<AudioList> tempAudioList = new ArrayList<>();
+    public static ArrayList<AudioListCategory> getAllAudio(Context context) {
+        ArrayList<AudioListCategory> tempAudioList = new ArrayList<>();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
                 MediaStore.Audio.Media.ALBUM,
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 String path = cursor.getString(3);
                 String artist = cursor.getString(4);
 
-                AudioList musicFiles = new AudioList(path, title, album, duration);
+                AudioListCategory musicFiles = new AudioListCategory(path, title, album, duration);
                 Log.e("Path: " + path, "Album: " + album);
                 tempAudioList.add(musicFiles);
             }

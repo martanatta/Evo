@@ -12,20 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHolderSounds> {
 
+    static List<AudioListCategory> mFiles;
     Context mContext;
-    static ArrayList<AudioList> mFiles;
 
-    SoundsAdapter(Context mContext, ArrayList<AudioList> mFiles) {
+    SoundsAdapter(List<AudioListCategory> mFiles, Context mContext) {
         this.mFiles = mFiles;
         this.mContext = mContext;
-    }
-
-    public SoundsAdapter(List<AudioList> mList) {
     }
 
     @Nullable
@@ -33,7 +29,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     public MyViewHolderSounds onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.from(mContext).inflate(R.layout.activity_sounds_list_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.activity_sounds_list_item, parent, false);
 
         return new MyViewHolderSounds(view);
     }

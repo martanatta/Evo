@@ -28,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.evo.EditProfileActivity.Name;
 
 public class MainFragment extends Fragment {
-
     View v;
     RecyclerView recyclerView;
     List<CategoryList> mList;
@@ -37,13 +36,11 @@ public class MainFragment extends Fragment {
     String prefsFiles = "Account";
     String token = "";
 
-
     public MainFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         v = inflater.inflate(R.layout.fragment_main, container, false);
 
         mList = new ArrayList<>();
@@ -59,7 +56,7 @@ public class MainFragment extends Fragment {
         nameSP.setText(Name);
         getData();
         return v;
-    }
+}
 
     public void getData() {
         Retrofit retrofit = new Retrofit.Builder()

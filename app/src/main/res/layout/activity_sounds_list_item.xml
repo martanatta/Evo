@@ -37,20 +37,17 @@
             android:layout_marginStart="25sp"
             android:layout_marginTop="35dp"
             android:layout_toEndOf="@id/img_forest"
-            android:text="59899 прослушавших"
+            android:text="20 мин"
             android:textColor="#BEC2C2"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
 
-        <TextView
-            android:id="@+id/songs_length"
+        <ImageView
+            android:id="@+id/fav_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="23sp"
-            android:layout_marginTop="35dp"
-            android:text="20 мин"
-            android:textColor="#BEC2C2"
-            android:textSize="12sp" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_player_favorite_off" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

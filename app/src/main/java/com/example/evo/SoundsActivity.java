@@ -1,7 +1,5 @@
 package com.example.evo;
 
-import static com.example.evo.MainActivity.musicFiles;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SoundsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    List<AudioList> mList;
+    List<AudioListCategory> mList;
     SoundsAdapter musicAdapter;
 
     @Override
@@ -56,26 +54,26 @@ public class SoundsActivity extends AppCompatActivity {
                 .build();
 
         ApiService api = retrofit.create(ApiService.class);
-        api.getAllSongs().enqueue(new Callback<List<AudioList>>() {
+        api.getAllSongs().enqueue(new Callback<List<AudioListCategory>>() {
             @Override
-            public void onResponse(Call<List<AudioList>> call, Response<List<AudioList>> response) {
+            public void onResponse(Call<List<AudioListCategory>> call, Response<List<AudioListCategory>> response) {
 //                Log.e("onResponse", "code: " + response.code());
 //                Log.e("onResponse", "string: " + response.toString());
-                initData(response.body());
+//                initData(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<AudioList>> call, Throwable t) {
+            public void onFailure(Call<List<AudioListCategory>> call, Throwable t) {
                 Log.e("onResponse", t.toString());
             }
         });
     }
 
-    private void initData(List<AudioList> body) {
-        mList.clear();
-        mList.addAll(body);
-        musicAdapter.notifyDataSetChanged();
-    }
+//    private void initData(List<AudioList> body) {
+//        mList.clear();
+//        mList.addAll(body);
+//        musicAdapter.notifyDataSetChanged();
+//    }
 
     public void backOnMain(View view) {
         onBackPressed();

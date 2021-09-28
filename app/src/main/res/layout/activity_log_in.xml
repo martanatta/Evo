@@ -63,14 +63,14 @@
         android:textColorHint="#BEC2C2"
         android:textSize="18sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:onClick="forgotPassword"
-        android:text="@string/forgot_password"
-        android:textColor="#BEC2C2"
-        android:textSize="14sp" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="end"-->
+<!--        android:onClick="forgotPassword"-->
+<!--        android:text="@string/forgot_password"-->
+<!--        android:textColor="#BEC2C2"-->
+<!--        android:textSize="14sp" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEnter"
