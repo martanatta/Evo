@@ -1,7 +1,7 @@
 package com.example.evo.apiShmapi;
 
 public class CategoryList {
-    int id;
+    public int id;
     String name;
     String description;
     String icon;
@@ -11,7 +11,6 @@ public class CategoryList {
         this.name = name;
         this.description = description;
         this.icon = icon;
-
     }
 
     public String getIcon() {

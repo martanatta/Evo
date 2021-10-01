@@ -1,7 +1,5 @@
 package com.example.evo.apiShmapi;
 
-import com.example.evo.AudioListCategory;
-
 import java.util.List;
 
 import retrofit2.Call;
@@ -16,15 +14,15 @@ public interface ApiService {
     @GET("/categories/")
     Call<List<CategoryList>> getCategoryList(@Header("Authorization") String token);
 
-    @GET("/favorite-audios/")
-    Call<List<FavoriteAudioList>> getFavoriteAudioList();
-
     @GET("/categories/{id}/")
     Call<CategoryDetail> getCategoryDetail(@Path("id") int audioId);
 
     @POST("/auth/jwt/create/")
     Call<TokenRefresh> logIn(@Body TokenObtainPair tokenObtainPair);
 
-    @GET("/audios/")
-    Call<List<AudioListCategory>> getAllSongs();
+//    @GET("/audios/")
+//    Call<List<AudioListCategory>> getAllSongs();
+
+//    @GET("/favorite-audios/")
+//    Call<List<FavoriteAudioList>> getFavoriteAudioList();
 }

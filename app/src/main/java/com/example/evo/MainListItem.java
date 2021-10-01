@@ -1,7 +1,6 @@
 package com.example.evo;
 
 public class MainListItem {
-
     public String text;
     public String description;
     public int image;

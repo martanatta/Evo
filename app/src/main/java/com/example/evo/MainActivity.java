@@ -30,15 +30,15 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.evo.apiShmapi.AudioList;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     MeowBottomNavigation bottomNavigation;
 
     public static final int REQUEST_CODE = 1;
-    static ArrayList<AudioListCategory> musicFiles;
+    static ArrayList<AudioList> musicFiles;
     static boolean shuffleBoolean = false, repeatBoolean = false;
 
     @Override
@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    public static ArrayList<AudioListCategory> getAllAudio(Context context) {
-        ArrayList<AudioListCategory> tempAudioList = new ArrayList<>();
+    public static ArrayList<AudioList> getAllAudio(Context context) {
+        ArrayList<AudioList> tempAudioList = new ArrayList<>();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
                 MediaStore.Audio.Media.ALBUM,
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 String path = cursor.getString(3);
                 String artist = cursor.getString(4);
 
-                AudioListCategory musicFiles = new AudioListCategory(path, title, album, duration);
+                AudioList musicFiles = new AudioList(path, title, album, duration);
                 Log.e("Path: " + path, "Album: " + album);
                 tempAudioList.add(musicFiles);
             }

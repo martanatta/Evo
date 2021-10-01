@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.ApiService;
+import com.example.evo.apiShmapi.CategoryDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,31 +22,24 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SoundsActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
-    List<AudioListCategory> mList;
+    List<CategoryDetail.Audio> mList = new ArrayList<>();
     SoundsAdapter musicAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound);
-
-        mList = new ArrayList<>();
+        //mList = new ArrayList<CategoryDetail>();
 
         recyclerView = findViewById(R.id.recyclerView);
 
-//        musicAdapter = new SoundsAdapter(mList);
-        recyclerView.setAdapter(musicAdapter);
+        musicAdapter = new SoundsAdapter(mList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(new SoundsActivity()));
+        recyclerView.setAdapter(musicAdapter);
+
 
         getData();
-        recyclerView.setHasFixedSize(true);
-//        if (!(musicFiles.size() < 1)) {
-//            musicAdapter = new SoundsAdapter(this, musicFiles);
-//            recyclerView.setAdapter(musicAdapter);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-//        }
     }
 
     public void getData() {
@@ -54,26 +49,32 @@ public class SoundsActivity extends AppCompatActivity {
                 .build();
 
         ApiService api = retrofit.create(ApiService.class);
-        api.getAllSongs().enqueue(new Callback<List<AudioListCategory>>() {
+        api.getCategoryDetail(1).enqueue(new Callback<CategoryDetail>() {
             @Override
-            public void onResponse(Call<List<AudioListCategory>> call, Response<List<AudioListCategory>> response) {
-//                Log.e("onResponse", "code: " + response.code());
-//                Log.e("onResponse", "string: " + response.toString());
-//                initData(response.body());
+            public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
+                Log.e("onResponse", "code: " + response.code());
+                Log.e("onResponse", "string: " + response.toString());
+                Log.e("work", "code: " + response.body().audios);
+                initData(response.body().audios);
+
             }
 
             @Override
-            public void onFailure(Call<List<AudioListCategory>> call, Throwable t) {
+            public void onFailure(@NonNull Call<CategoryDetail> call, Throwable t) {
                 Log.e("onResponse", t.toString());
             }
         });
     }
 
-//    private void initData(List<AudioList> body) {
-//        mList.clear();
-//        mList.addAll(body);
-//        musicAdapter.notifyDataSetChanged();
-//    }
+    private void initData(List<CategoryDetail.Audio> audios) {
+        Log.e("SMTH", String.valueOf(audios.size()));
+
+        mList.clear();
+        mList.addAll(audios);
+        musicAdapter.notifyDataSetChanged();
+        Log.e("SMTH 2", mList.size() + "");
+
+    }
 
     public void backOnMain(View view) {
         onBackPressed();

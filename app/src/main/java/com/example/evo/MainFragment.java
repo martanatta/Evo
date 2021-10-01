@@ -99,5 +99,4 @@ public class MainFragment extends Fragment {
 //        mList.add(new CategoryList(("Предназначение", "Поможет найти своё место в жизни и быть полезным своим близким.", R.drawable.card_4, "начать"));
 //    }
     }
-
 }

@@ -49,35 +49,35 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         musicAdapter = new AudiosAdapter(mList, getContext());
         recyclerView.setAdapter(musicAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        getData();
+//        getData();
         return v;
     }
 
-    public void getData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://a0571908.xsph.ru/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService api = retrofit.create(ApiService.class);
-        api.getFavoriteAudioList().enqueue(new Callback<List<FavoriteAudioList>>() {
-            @Override
-            public void onResponse(Call<List<FavoriteAudioList>> call, Response<List<FavoriteAudioList>> response) {
-                Log.e("onResponse main", "code: " + response.code());
-                Log.e("onResponse main", "string: " + response.toString());
-                if (response.isSuccessful()) {
-                    initData(response.body());
-                } else {
-                    Log.e("not successful", "fail");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<FavoriteAudioList>> call, Throwable t) {
-                Log.e("onResponse", t.toString());
-            }
-        });
-    }
+//    public void getData() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://a0571908.xsph.ru/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        ApiService api = retrofit.create(ApiService.class);
+//        api.getFavoriteAudioList().enqueue(new Callback<List<FavoriteAudioList>>() {
+//            @Override
+//            public void onResponse(Call<List<FavoriteAudioList>> call, Response<List<FavoriteAudioList>> response) {
+//                Log.e("onResponse main", "code: " + response.code());
+//                Log.e("onResponse main", "string: " + response.toString());
+//                if (response.isSuccessful()) {
+//                    initData(response.body());
+//                } else {
+//                    Log.e("not successful", "fail");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<FavoriteAudioList>> call, Throwable t) {
+//                Log.e("onResponse", t.toString());
+//            }
+//        });
+//    }
 
     private void initData(List<FavoriteAudioList> body) {
         mList.clear();

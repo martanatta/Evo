@@ -1,5 +1,6 @@
 package com.example.evo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,32 +13,38 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.evo.apiShmapi.CategoryDetail;
+
 import java.util.List;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHolderSounds> {
-
-    static List<AudioListCategory> mFiles;
     Context mContext;
+    static List<CategoryDetail.Audio> mFiles;
 
-    SoundsAdapter(List<AudioListCategory> mFiles, Context mContext) {
-        this.mFiles = mFiles;
-        this.mContext = mContext;
+    public SoundsAdapter(List<CategoryDetail.Audio> mList, Context context) {
+        this.mFiles = mList;
+        this.mContext = context;
     }
 
     @Nullable
     @Override
     public MyViewHolderSounds onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.activity_sounds_list_item, parent, false);
+        View view = layoutInflater.from(mContext).inflate(R.layout.activity_sounds_list_item, parent,
+                false);
 
         return new MyViewHolderSounds(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolderSounds holder, int position) {
-        holder.file_name.setText(mFiles.get(position).getTitle());
-        holder.lengthOfSongs.setText(mFiles.get(position).getDuration());
+    public void onBindViewHolder(@NonNull MyViewHolderSounds holder, @SuppressLint("RecyclerView") int position) {
+//        CategoryDetail.Audio meditation = mFiles;
+
+        holder.file_name.setText(mFiles.get(position).name);
+
+
+//        picasso nado
+//        holder.album_art.setImageResource();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
