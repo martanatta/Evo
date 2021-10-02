@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:elevation="100dp"
         android:src="@drawable/ic_bn_user2" />
 
     <RelativeLayout

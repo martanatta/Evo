@@ -28,7 +28,6 @@ import static com.example.evo.MainActivity.repeatBoolean;
 import static com.example.evo.MainActivity.shuffleBoolean;
 
 public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
-
     private TextView songName, playedDuration, totalDuration;
     private ImageView imageOfSongs, btnNext, btnPrev, randomBtn, repeatBtn, playPauseBtn, favoriteBtn, shareBtn;
     private SeekBar seekBar;

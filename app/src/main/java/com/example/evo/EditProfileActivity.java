@@ -113,7 +113,6 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         savedCheckedRadioButton.setChecked(true);
     }
 
-
     public void backOnProfile(View view) {
         onBackPressed();
     }
@@ -181,7 +180,6 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
         EditText countryEdit = findViewById(R.id.country_editText);
         Country = countryEdit.getText().toString();
         prefEditor.putString(prefCountry, Country);
-
 
         EditText emailEdit = findViewById(R.id.Email_editText);
         String email = emailEdit.getText().toString();
