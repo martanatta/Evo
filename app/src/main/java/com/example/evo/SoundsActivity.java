@@ -1,5 +1,10 @@
 package com.example.evo;
 
+//import static com.example.evo.MainFragment.mList;
+
+import static com.example.evo.MainFragment.MedID;
+import static com.example.evo.MainFragment.globalID;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +20,7 @@ import com.example.evo.apiShmapi.CategoryList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +33,7 @@ public class SoundsActivity extends AppCompatActivity {
     List<CategoryDetail.Audio> mList = new ArrayList<>();
     SoundsAdapter musicAdapter;
 
+//    List<CategoryList> mListId = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +47,10 @@ public class SoundsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(new SoundsActivity()));
         recyclerView.setAdapter(musicAdapter);
 
-
+//        mListId.add()
+//
+//        Log.e("ASDSDASDS", mListId.size() + "");
+//        Log.e("SADSADSD", MainFragment.mList.size() + "");
 
 
 
@@ -54,7 +64,15 @@ public class SoundsActivity extends AppCompatActivity {
                 .build();
 
         ApiService api = retrofit.create(ApiService.class);
-        api.getCategoryDetail(1).enqueue(new Callback<CategoryDetail>() {
+
+        MedID = new ArrayList<Integer>();
+        for(CategoryList c : MainFragment.mList){
+            if(c.id > 0){
+                MedID.add(c.id);}}
+
+
+        api.getCategoryDetail(3).enqueue(new Callback<CategoryDetail>() {
+
             @Override
             public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
                 Log.e("onResponse", "code: " + response.code());
@@ -70,6 +88,7 @@ public class SoundsActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void initData(List<CategoryDetail.Audio> audios) {
         Log.e("SMTH", String.valueOf(audios.size()));
