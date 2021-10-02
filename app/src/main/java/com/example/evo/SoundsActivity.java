@@ -26,7 +26,6 @@ public class SoundsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<CategoryDetail.Audio> mList = new ArrayList<>();
     SoundsAdapter musicAdapter;
-    CategoryList bebeId;
 
 
     @Override
@@ -43,6 +42,8 @@ public class SoundsActivity extends AppCompatActivity {
 
 
 
+
+
         getData();
     }
 
@@ -53,7 +54,7 @@ public class SoundsActivity extends AppCompatActivity {
                 .build();
 
         ApiService api = retrofit.create(ApiService.class);
-        api.getCategoryDetail(bebeId.getId()).enqueue(new Callback<CategoryDetail>() {
+        api.getCategoryDetail(1).enqueue(new Callback<CategoryDetail>() {
             @Override
             public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
                 Log.e("onResponse", "code: " + response.code());

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#0B5563"
     android:orientation="vertical"
-    tools:context=".SignUpActivity">
+    tools:context=".RegUser.SignUpActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -59,7 +59,6 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#BEC2C2"
                 android:hint="@string/name"
-                android:inputType="textEmailAddress"
                 android:paddingStart="12dp"
                 android:selectAllOnFocus="true"
                 android:textColor="#ffffff"

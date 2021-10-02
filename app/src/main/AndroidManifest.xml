@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".EditProfileActivity" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".RegUser.SignUpActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".LogInSignUpActivity" />
         <activity android:name=".PlayerActivity" />

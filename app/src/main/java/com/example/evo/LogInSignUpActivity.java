@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.evo.RegUser.SignUpActivity;
+
 public class LogInSignUpActivity extends AppCompatActivity {
 
     @Override
