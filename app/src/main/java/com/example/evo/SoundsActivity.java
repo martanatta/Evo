@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.ApiService;
 import com.example.evo.apiShmapi.CategoryDetail;
+import com.example.evo.apiShmapi.CategoryList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class SoundsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<CategoryDetail.Audio> mList = new ArrayList<>();
     SoundsAdapter musicAdapter;
+    CategoryList bebeId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class SoundsActivity extends AppCompatActivity {
         recyclerView.setAdapter(musicAdapter);
 
 
+
         getData();
     }
 
@@ -49,7 +53,7 @@ public class SoundsActivity extends AppCompatActivity {
                 .build();
 
         ApiService api = retrofit.create(ApiService.class);
-        api.getCategoryDetail(1).enqueue(new Callback<CategoryDetail>() {
+        api.getCategoryDetail(bebeId.getId()).enqueue(new Callback<CategoryDetail>() {
             @Override
             public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
                 Log.e("onResponse", "code: " + response.code());
