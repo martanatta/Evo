@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.CategoryList;
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.List;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolderMain> {
     List<CategoryList> mList;
     Context context;
+    private ItemClickListener mClickListener;
+
 
     public MainAdapter(List<CategoryList> mList, Context context) {
         this.mList = mList;
@@ -40,6 +44,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolderMa
         holder.mTextTitle.setText(mList.get(position).getName());
         holder.mTextDesc.setText(mList.get(position).getDescription());
         Picasso.get().load(mList.get(position).getIcon()).into(holder.mImageView);
+
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mClickListener.onClick(position);
+            }
+        });
     }
 
     @Override
@@ -47,7 +58,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolderMa
         return mList.size();
     }
 
+    public void setOnItemClickListener(ItemClickListener listener) {
+        mClickListener = listener;
+    }
+
     public class MyViewHolderMain extends RecyclerView.ViewHolder {
+        private CardView mCardView;
         ImageView mImageView;
         TextView mTextTitle;
         TextView mTextDesc;
@@ -55,6 +71,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolderMa
 
         public MyViewHolderMain(@NonNull View itemView) {
             super(itemView);
+            mCardView = itemView.findViewById(R.id.cardView);
             mTextTitle = itemView.findViewById(R.id.title_textView);
             mTextDesc = itemView.findViewById(R.id.desc_textView);
             mImageView = itemView.findViewById(R.id.imageView);

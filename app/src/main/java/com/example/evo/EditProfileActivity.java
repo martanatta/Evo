@@ -1,6 +1,7 @@
 package com.example.evo;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -153,6 +154,9 @@ public class EditProfileActivity extends AppCompatActivity implements AdapterVie
 
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
+
+        new Intent(EditProfileActivity.this, MainActivity.class);
+        finish();
     }
 
     public void checkButton(View v) {

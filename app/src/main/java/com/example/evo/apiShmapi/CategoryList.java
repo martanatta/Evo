@@ -1,6 +1,9 @@
 package com.example.evo.apiShmapi;
 
+import androidx.room.PrimaryKey;
+
 public class CategoryList {
+    @PrimaryKey(autoGenerate = true)
     public int id;
     String name;
     String description;

@@ -1,5 +1,6 @@
 package com.example.evo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,13 +27,12 @@ public class SoundsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<CategoryDetail.Audio> mList = new ArrayList<>();
     SoundsAdapter musicAdapter;
-
+    private int mMainId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound);
-        //mList = new ArrayList<CategoryDetail>();
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -40,9 +40,9 @@ public class SoundsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(new SoundsActivity()));
         recyclerView.setAdapter(musicAdapter);
 
-
-
-
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        mMainId = extras.getInt("id");
 
         getData();
     }
@@ -54,14 +54,13 @@ public class SoundsActivity extends AppCompatActivity {
                 .build();
 
         ApiService api = retrofit.create(ApiService.class);
-        api.getCategoryDetail(1).enqueue(new Callback<CategoryDetail>() {
+        api.getCategoryDetail(mMainId).enqueue(new Callback<CategoryDetail>() {
             @Override
             public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
                 Log.e("onResponse", "code: " + response.code());
                 Log.e("onResponse", "string: " + response.toString());
                 Log.e("work", "code: " + response.body().audios);
                 initData(response.body().audios);
-
             }
 
             @Override
@@ -72,13 +71,9 @@ public class SoundsActivity extends AppCompatActivity {
     }
 
     private void initData(List<CategoryDetail.Audio> audios) {
-        Log.e("SMTH", String.valueOf(audios.size()));
-
         mList.clear();
         mList.addAll(audios);
         musicAdapter.notifyDataSetChanged();
-        Log.e("SMTH 2", mList.size() + "");
-
     }
 
     public void backOnMain(View view) {

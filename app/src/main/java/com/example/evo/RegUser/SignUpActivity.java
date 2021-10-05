@@ -15,15 +15,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
-
     Button btnRegister;
     FirebaseAuth mAuth;
     FirebaseDatabase db;
@@ -55,37 +52,6 @@ public class SignUpActivity extends AppCompatActivity {
                 userSignUp();
             }
         });
-
-        // Начало Нурса
-//
-//        btnRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl("http://a0571908.xsph.ru")
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//
-//                Api api = retrofit.create(Api.class);
-//
-//                api.Registration().enqueue(new Callback<RegUser>() {
-//                    @Override
-//                    public void onResponse(Call<RegUser> call, Response<RegUser> response) {
-//                        Log.e("onResponse", "code: " + response.code());
-//                        Log.e("onResponse", "code: " + response.body());
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<RegUser> call, Throwable t) {
-//
-//                    }
-//                });
-//            }
-//        });
-        // Конец Нурса
-
 
 //        btnRegister.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -160,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = EdTPassword.getText().toString().trim();
 
         Call<ResponseBody> call = RetrofitClient.getInstance()
-                .getApi().createUser(name,email,password);
+                .getApi().createUser(name, email, password);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -175,9 +141,6 @@ public class SignUpActivity extends AppCompatActivity {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-
-
-
             }
 
             @Override
@@ -185,13 +148,5 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-        }
-
-
-
     }
-
-
-
-
+}

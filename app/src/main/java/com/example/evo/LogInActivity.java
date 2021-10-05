@@ -11,12 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.evo.RegUser.SignUpActivity;
 import com.example.evo.apiShmapi.ApiService;
 import com.example.evo.apiShmapi.TokenObtainPair;
 import com.example.evo.apiShmapi.TokenRefresh;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +29,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LogInActivity extends AppCompatActivity {
-
     Button btnEnterToMain;
 //    FirebaseAuth mAuth;
 //    FirebaseDatabase db;
@@ -49,7 +52,6 @@ public class LogInActivity extends AppCompatActivity {
         EdTEmail = findViewById(R.id.log_in_email);
         EdTPassword = findViewById(R.id.log_in_password);
         TextView signUp = findViewById(R.id.enter_to_sign_up_from_log_in);
-
 
         btnEnterToMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,23 +84,20 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-
-//                mAuth.signInWithEmailAndPassword(EdTEmail.getText().toString(), EdTPassword.getText().toString())
-//                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-//                            @Override
-//                            public void onSuccess(AuthResult authResult) {
-//                                startActivity(new Intent(LogInActivity.this, MainActivity.class));
-//                                finish();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
+//        mAuth.signInWithEmailAndPassword(EdTEmail.getText().toString(), EdTPassword.getText().toString())
+//                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
 //                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(LogInActivity.this, "Error. " + e.getMessage(), Toast.LENGTH_LONG).show();
-//                            }
-//                        });
-//
+//                    public void onSuccess(AuthResult authResult) {
+//                        startActivity(new Intent(LogInActivity.this, MainActivity.class));
+//                        finish();
 //                    }
-//                });
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(LogInActivity.this, "Error. " + e.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
+
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,11 +115,6 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void forgotPassword(View view) {
-        Toast.makeText(LogInActivity.this, "Вспомните!", Toast.LENGTH_LONG).show();
-    }
-
 
     private boolean checkPassword() {
         email = EdTEmail.getText().toString();
@@ -160,6 +154,5 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
         return true;
-
     }
 }

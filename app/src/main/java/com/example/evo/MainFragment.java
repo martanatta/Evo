@@ -1,6 +1,9 @@
 package com.example.evo;
 
+import static com.example.evo.EditProfileActivity.Name;
+
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.ApiService;
+import com.example.evo.apiShmapi.CategoryDetail;
 import com.example.evo.apiShmapi.CategoryList;
 
 import java.util.ArrayList;
@@ -24,8 +30,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.evo.EditProfileActivity.Name;
 
 public class MainFragment extends Fragment {
     View v;
@@ -45,18 +49,37 @@ public class MainFragment extends Fragment {
 
         mList = new ArrayList<>();
 
-        recyclerView = v.findViewById(R.id.listItemRecyclerView);
-
-        listItemAdapter = new MainAdapter(mList, getContext());
-        recyclerView.setAdapter(listItemAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         TextView nameSP = v.findViewById(R.id.text_name_SP);
         settings = getContext().getSharedPreferences(prefsFiles, Context.MODE_PRIVATE);
         token = settings.getString("token", "token");
         nameSP.setText(Name);
         getData();
         return v;
-}
+    }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.e("MainFragment", "onViewCreated");
+
+        recyclerView = v.findViewById(R.id.listItemRecyclerView);
+
+        listItemAdapter = new MainAdapter(mList, getContext());
+        recyclerView.setAdapter(listItemAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        ItemClickListener listener = new ItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                CategoryList item = mList.get(position);
+
+                Intent intent = new Intent(getActivity(), SoundsActivity.class);
+                intent.putExtra("id", item.id);
+                startActivity(intent);
+                Log.e("onResponse", "code: " + item.id);
+            }
+        };
+        listItemAdapter.setOnItemClickListener(listener);
+    }
 
     public void getData() {
         Retrofit retrofit = new Retrofit.Builder()
