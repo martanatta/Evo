@@ -25,20 +25,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SoundsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    List<CategoryDetail.Audio> mList = new ArrayList<>();
     SoundsAdapter musicAdapter;
+    List<CategoryDetail.Audio> mList = new ArrayList<>();
     private int mMainId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound);
-
         recyclerView = findViewById(R.id.recyclerView);
 
         musicAdapter = new SoundsAdapter(mList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(new SoundsActivity()));
         recyclerView.setAdapter(musicAdapter);
+
+        ItemClickListener listener = new ItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                CategoryDetail.Audio item = mList.get(position);
+
+                Intent intent = new Intent(SoundsActivity.this, PlayerActivity.class);
+                intent.putExtra("sounds_id", item.id);
+                startActivity(intent);
+            }
+        };
+        musicAdapter.setOnItemClickListener(listener);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();

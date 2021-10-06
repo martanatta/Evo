@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.CategoryDetail;
@@ -20,6 +21,7 @@ import java.util.List;
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHolderSounds> {
     Context mContext;
     static List<CategoryDetail.Audio> mFiles;
+    private ItemClickListener mClickListener;
 
     public SoundsAdapter(List<CategoryDetail.Audio> mList, Context context) {
         this.mFiles = mList;
@@ -38,41 +40,45 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderSounds holder, @SuppressLint("RecyclerView") int position) {
-//        CategoryDetail.Audio meditation = mFiles;
-
         holder.file_name.setText(mFiles.get(position).name);
-
-
-//        picasso nado
-//        holder.album_art.setImageResource();
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, PlayerActivity.class);
-                intent.putExtra("position", position);
-                mContext.startActivity(intent);
+            public void onClick(View view) {
+                mClickListener.onClick(position);
             }
         });
     }
+//        picasso need
+//        holder.album_art.setImageResource();
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, PlayerActivity.class);
+//                intent.putExtra("position", position);
+//                mContext.startActivity(intent);
+//            }
+//        });
 
     @Override
     public int getItemCount() {
         return mFiles.size();
     }
 
-    public class MyViewHolderSounds extends RecyclerView.ViewHolder {
+    public void setOnItemClickListener(ItemClickListener listener) {
+        mClickListener = listener;
+    }
 
+    public class MyViewHolderSounds extends RecyclerView.ViewHolder {
+        CardView mCardView;
         ImageView album_art;
-        TextView file_name, listOfListeners, lengthOfSongs;
+        TextView file_name, listOfListeners;
 
         public MyViewHolderSounds(@NonNull View itemView) {
             super(itemView);
-
+            mCardView = itemView.findViewById(R.id.cardViewSounds);
             album_art = itemView.findViewById(R.id.img_forest);
             file_name = itemView.findViewById(R.id.text_forest);
             listOfListeners = itemView.findViewById(R.id.num_of_list1);
-//            lengthOfSongs = itemView.findViewById(R.id.songs_length);
         }
     }
 }

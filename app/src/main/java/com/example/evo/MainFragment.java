@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.ApiService;
-import com.example.evo.apiShmapi.CategoryDetail;
 import com.example.evo.apiShmapi.CategoryList;
 
 import java.util.ArrayList;
@@ -35,13 +34,12 @@ public class MainFragment extends Fragment {
     View v;
     RecyclerView recyclerView;
     static List<CategoryList> mList;
-    static List<Integer> MedID;
     MainAdapter listItemAdapter;
     SharedPreferences settings;
     String prefsFiles = "Account";
     String token = "";
-    static int globalID;
-
+//    static int globalID;
+//    static List<Integer> MedID;
 
     public MainFragment() {
     }
@@ -58,7 +56,7 @@ public class MainFragment extends Fragment {
         nameSP.setText(Name);
         getData();
         return v;
-}
+    }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -116,16 +114,16 @@ public class MainFragment extends Fragment {
         mList.addAll(body);
         listItemAdapter.notifyDataSetChanged();
 
-        MedID = new ArrayList<Integer>();
-        for(CategoryList c : mList){
-            if(c.id > 0){
-                MedID.add(c.id);
-                globalID = c.id;
-            }
-        }
-        Log.e("ASDSAD", MedID.size()+"");
-        Log.e("ASDSAD1", MedID.toString());
-        Log.e("ASDSAD2", globalID +"");
+//        MedID = new ArrayList<Integer>();
+//        for (CategoryList c : mList) {
+//            if (c.id > 0) {
+//                MedID.add(c.id);
+//                globalID = c.id;
+//            }
+//        }
+//        Log.e("sus", MedID.size() + "");
+//        Log.e("sus1", MedID.toString());
+//        Log.e("sus2", globalID + "");
 
 
 //    @Override

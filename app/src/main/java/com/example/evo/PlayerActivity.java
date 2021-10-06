@@ -37,11 +37,17 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
     public static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
     private Thread playThread, nextThread, prevThread;
+    private int mSoundsId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        mSoundsId = extras.getInt("people_id");
+
         initViews();
         getIntentMethod();
         songName.setText(listSong.get(position).getTitle());

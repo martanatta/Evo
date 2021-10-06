@@ -49,6 +49,7 @@
             android:layout_marginTop="50dp"
             android:backgroundTint="#253334"
             android:onClick="enter_in_sound_playlist"
+            android:clickable="false"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/start"
