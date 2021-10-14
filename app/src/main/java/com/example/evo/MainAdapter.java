@@ -20,10 +20,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolderMain> {
-    List<CategoryList> mList;
     Context context;
+    List<CategoryList> mList;
     private ItemClickListener mClickListener;
-
 
     public MainAdapter(List<CategoryList> mList, Context context) {
         this.mList = mList;

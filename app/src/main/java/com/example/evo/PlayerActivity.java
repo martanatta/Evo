@@ -1,43 +1,48 @@
 package com.example.evo;
 
+import static com.example.evo.MainActivity.repeatBoolean;
+import static com.example.evo.MainActivity.shuffleBoolean;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.evo.apiShmapi.AudioList;
+import com.example.evo.apiShmapi.CategoryDetail;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-
-import static com.example.evo.MainActivity.musicFiles;
-import static com.example.evo.MainActivity.repeatBoolean;
-import static com.example.evo.MainActivity.shuffleBoolean;
 
 public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
     private TextView songName, playedDuration, totalDuration;
     private ImageView imageOfSongs, btnNext, btnPrev, randomBtn, repeatBtn, playPauseBtn, favoriteBtn, shareBtn;
     private SeekBar seekBar;
     private int position = -1;
-    public static ArrayList<AudioList> listSong = new ArrayList<>();
+    public static ArrayList<CategoryDetail.Audio> listSong = new ArrayList<>();
     public static Uri uri;
-    public static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer = new MediaPlayer();
     private Handler handler = new Handler();
     private Thread playThread, nextThread, prevThread;
-    private int mSoundsId;
+    public static List<CategoryDetail.Audio> testList = new ArrayList<>();
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,12 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        mSoundsId = extras.getInt("people_id");
+        url = extras.getString("sound");
+        Log.e("PlayerActivity", url);
 
         initViews();
         getIntentMethod();
-        songName.setText(listSong.get(position).getTitle());
+//        songName.setText(listSong.get(position).name);
         mediaPlayer.setOnCompletionListener(this);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -121,6 +127,44 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         });
     }
 
+//    public void getData() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://a0571908.xsph.ru/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        ApiService api = retrofit.create(ApiService.class);
+//        api.getCategoryDetail(categoryId).enqueue(new Callback<CategoryDetail>() {
+//            @Override
+//            public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
+//                Log.e("onResponse sound", "code: " + response.code());
+//                Log.e("onResponse sound", "string: " + response.toString());
+//                if (response.isSuccessful()) {
+//                    if (response.body() != null) {
+//                        Log.e("Response Body", "Success");
+//                        for (int i = 0; i<=response.body().audios.size(); i++){
+//                            if(response.body().audios.get(i).id == mSoundsId){
+//                                testUri = Uri.parse(response.body().audios.get(i).audio_file);
+//                            }else{
+//                                testUri = Uri.parse("");
+//                            }
+//                        }
+//                    } else {
+//                        Log.e("Response Body", "Null");
+//
+//                    }
+//                } else {
+//                    Log.e("not successful", "fail");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CategoryDetail> call, Throwable t) {
+//                Log.e("PlayerActivity", t.toString());
+//            }
+//        });
+//    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -180,10 +224,10 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             } else if (!shuffleBoolean && !repeatBoolean) {
                 position = ((position - 1) < 0 ? (listSong.size() - 1) : (position - 1));
             }
-            uri = Uri.parse(listSong.get(position).getPath());
+//            uri = Uri.parse(listSong.get(position).getPath());
             mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
             metaData(uri);
-            songName.setText(listSong.get(position).getTitle());
+            songName.setText(listSong.get(position).name);
             seekBar.setMax(mediaPlayer.getDuration() / 1000);
             PlayerActivity.this.runOnUiThread(new Runnable() {
                 @Override
@@ -206,10 +250,10 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             } else if (!shuffleBoolean && !repeatBoolean) {
                 position = ((position - 1) < 0 ? (listSong.size() - 1) : (position - 1));
             }
-            uri = Uri.parse(listSong.get(position).getPath());
+//            uri = Uri.parse(listSong.get(position).getPath());
             mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
             metaData(uri);
-            songName.setText(listSong.get(position).getTitle());
+            songName.setText(listSong.get(position).name);
             seekBar.setMax(mediaPlayer.getDuration() / 1000);
             PlayerActivity.this.runOnUiThread(new Runnable() {
                 @Override
@@ -251,10 +295,10 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             } else if (!shuffleBoolean && !repeatBoolean) {
                 position = ((position + 1) % listSong.size());
             }
-            uri = Uri.parse(listSong.get(position).getPath());
+//            uri = Uri.parse(listSong.get(position).getPath());
             mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
             metaData(uri);
-            songName.setText(listSong.get(position).getTitle());
+            songName.setText(listSong.get(position).name);
             seekBar.setMax(mediaPlayer.getDuration() / 1000);
             PlayerActivity.this.runOnUiThread(new Runnable() {
                 @Override
@@ -277,10 +321,10 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             } else if (!shuffleBoolean && !repeatBoolean) {
                 position = ((position + 1) % listSong.size());
             }
-            uri = Uri.parse(listSong.get(position).getPath());
+            uri = Uri.parse(testList.get(position).audio_file);
             mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
             metaData(uri);
-            songName.setText(listSong.get(position).getTitle());
+            songName.setText(listSong.get(position).name);
             seekBar.setMax(mediaPlayer.getDuration() / 1000);
             PlayerActivity.this.runOnUiThread(new Runnable() {
                 @Override
@@ -365,23 +409,20 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
     }
 
     private void getIntentMethod() {
-        position = getIntent().getIntExtra("position", -1);
-        listSong = musicFiles;
-        if (listSong != null) {
-            playPauseBtn.setImageResource(R.drawable.ic_player_pause);
-            uri = Uri.parse(listSong.get(position).getPath());
-        }
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+        position = getIntent().getIntExtra("position", 1);
+        playPauseBtn.setImageResource(R.drawable.ic_player_pause);
+
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(url);
+            mediaPlayer.prepare();
             mediaPlayer.start();
-        } else {
-            mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
-            mediaPlayer.start();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
         }
+
         seekBar.setMax(mediaPlayer.getDuration() / 1000);
-        metaData(uri);
+//        metaData(uri);
     }
 
     private void initViews() {
@@ -402,8 +443,8 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
     private void metaData(Uri uri) {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(uri.toString());
-        int durationTotal = Integer.parseInt(listSong.get(position).getDuration()) / 1000;
-        totalDuration.setText(formattedTime(durationTotal));
+//        int durationTotal = Integer.parseInt(listSong.get(position).getDuration()) / 1000;
+//        totalDuration.setText(formattedTime(durationTotal));
     }
 
     public void ImageAnimation(Context context, ImageView imageView, Bitmap bitmap) {

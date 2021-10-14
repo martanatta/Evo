@@ -35,25 +35,24 @@ public class SoundsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sound);
         recyclerView = findViewById(R.id.recyclerView);
 
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        mMainId = extras.getInt("id");
         musicAdapter = new SoundsAdapter(mList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(new SoundsActivity()));
         recyclerView.setAdapter(musicAdapter);
-
         ItemClickListener listener = new ItemClickListener() {
             @Override
             public void onClick(int position) {
                 CategoryDetail.Audio item = mList.get(position);
 
                 Intent intent = new Intent(SoundsActivity.this, PlayerActivity.class);
-                intent.putExtra("sounds_id", item.id);
+                intent.putExtra("category_id", mMainId);
+                intent.putExtra("sound", item.audio_file);
                 startActivity(intent);
             }
         };
         musicAdapter.setOnItemClickListener(listener);
-
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        mMainId = extras.getInt("id");
 
         getData();
     }

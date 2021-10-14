@@ -16,6 +16,7 @@ public interface ApiService {
 
     @GET("/categories/{id}/")
     Call<CategoryDetail> getCategoryDetail(@Path("id") int audioId);
+    @GET("/categories/")
 
     @POST("/auth/jwt/create/")
     Call<TokenRefresh> logIn(@Body TokenObtainPair tokenObtainPair);
