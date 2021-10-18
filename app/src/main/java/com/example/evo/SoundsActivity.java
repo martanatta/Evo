@@ -17,6 +17,8 @@ import com.example.evo.apiShmapi.CategoryList;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,8 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SoundsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SoundsAdapter musicAdapter;
-    List<CategoryDetail.Audio> mList = new ArrayList<>();
+    public static List<CategoryDetail.Audio> mList = new ArrayList<>();
     private int mMainId;
+    int mTrackPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +48,16 @@ public class SoundsActivity extends AppCompatActivity {
             @Override
             public void onClick(int position) {
                 CategoryDetail.Audio item = mList.get(position);
+                Log.e("ПОЗИЦИЯ", position + "");
 
                 Intent intent = new Intent(SoundsActivity.this, PlayerActivity.class);
                 intent.putExtra("category_id", mMainId);
                 intent.putExtra("sound", item.audio_file);
+                intent.putExtra("position", position);
+                intent.putExtra("categoryId", mMainId);
+
+
+
                 startActivity(intent);
             }
         };
@@ -58,6 +67,10 @@ public class SoundsActivity extends AppCompatActivity {
     }
 
     public void getData() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://a0571908.xsph.ru/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -70,7 +83,9 @@ public class SoundsActivity extends AppCompatActivity {
                 Log.e("onResponse", "code: " + response.code());
                 Log.e("onResponse", "string: " + response.toString());
                 Log.e("work", "code: " + response.body().audios);
+                interceptor.level(HttpLoggingInterceptor.Level.BODY);
                 initData(response.body().audios);
+                Log.e("Размер листа", mList.size()+"");
             }
 
             @Override
