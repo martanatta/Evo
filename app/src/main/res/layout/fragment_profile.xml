@@ -36,10 +36,11 @@
 
         <TextView
             android:id="@+id/users_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
+            android:gravity="center"
             android:text="Имя Фамилия"
             android:textColor="#ffffff"
             android:textSize="25sp" />
@@ -48,14 +49,18 @@
             android:id="@+id/profile_edit"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_margin="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="7dp"
             android:layout_toEndOf="@+id/users_name"
             android:background="@drawable/ic_profile_edit" />
 
         <TextView
             android:id="@+id/users_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="35dp"
             android:fontFamily="sans-serif"

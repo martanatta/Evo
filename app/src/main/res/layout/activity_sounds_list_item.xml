@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/img_forest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/round_forest" />
 
         <TextView
@@ -25,23 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:layout_toEndOf="@id/img_forest"
             android:text="Тропический лес"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/num_of_list1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25sp"
-            android:layout_marginTop="35dp"
-            android:layout_toEndOf="@id/img_forest"
-            android:text="20 мин"
-            android:textColor="#BEC2C2"
-            android:textSize="10sp"
-            tools:ignore="SmallSp" />
+
 
         <ImageView
             android:id="@+id/fav_btn"
