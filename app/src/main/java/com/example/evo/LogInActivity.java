@@ -9,18 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.evo.RegUser.SignUpActivity;
 import com.example.evo.apiShmapi.ApiService;
 import com.example.evo.apiShmapi.TokenObtainPair;
 import com.example.evo.apiShmapi.TokenRefresh;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -102,16 +97,9 @@ public class LogInActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                        checkPassword();
-                Log.e("Check", "checkkkk");
-                //getCredentials();
-                Intent intent = new Intent();
-//                        intent.putExtra("Email", EdTEmail.getText().toString());
-//                        intent.putExtra("Password", EdTPassword.getText().toString());
-                if (checkPassword()) {
-                    startActivity(new Intent(LogInActivity.this, SignUpActivity.class));
-                    finish();
-                }
+                Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.evo.RegUser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.evo.LogInActivity;
 import com.example.evo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -106,13 +108,13 @@ public class SignUpActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        LogIn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
-//                finish();
-//            }
-//        });
+        LogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
+                finish();
+            }
+        });
     }
 
     private void userSignUp() {

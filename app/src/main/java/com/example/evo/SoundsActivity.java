@@ -77,6 +77,7 @@ public class SoundsActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://a0571908.xsph.ru/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
 
         ApiService api = retrofit.create(ApiService.class);

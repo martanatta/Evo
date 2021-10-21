@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.CategoryDetail;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderSounds holder, @SuppressLint("RecyclerView") int position) {
         holder.file_name.setText(mFiles.get(position).name);
+        Picasso.get().load(mFiles.get(position).picture).into(holder.album_art);
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +80,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
             mCardView = itemView.findViewById(R.id.cardViewSounds);
             album_art = itemView.findViewById(R.id.img_forest);
             file_name = itemView.findViewById(R.id.text_forest);
-            listOfListeners = itemView.findViewById(R.id.num_of_list1);
+//            listOfListeners = itemView.findViewById(R.id.num_of_list1);
         }
     }
 }
