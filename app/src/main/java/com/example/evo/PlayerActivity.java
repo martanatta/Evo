@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,11 +20,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.evo.apiShmapi.ApiService;
 import com.example.evo.apiShmapi.CategoryDetail;
 import com.squareup.picasso.Picasso;
 
@@ -33,13 +30,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Url;
 
 public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
     private TextView songName, playedDuration, totalDuration;
@@ -65,7 +55,6 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         Bundle extras = intent.getExtras();
         url = extras.getString("sound");
         position = getIntent().getIntExtra("position", 1);
-//        getData();
         urlList = SoundsActivity.mList;
 
         Log.e("PlayerActivity", url);
@@ -74,7 +63,6 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         initViews();
         getIntentMethod();
 
-//        songName.setText(listSong.get(position).name);
         mediaPlayer.setOnCompletionListener(this);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -103,7 +91,6 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
                     seekBar.setProgress(mCurrentPosition);
                     playedDuration.setText(formattedTime(mCurrentPosition));
                     int durationTotal = mediaPlayer.getDuration() / 1000;
-//                  int durationTotal = Integer.parseInt(String.valueOf(listSong.get(position)));
                     totalDuration.setText(formattedTime(durationTotal));
                 }
                 handler.postDelayed(this, 1000);
@@ -139,7 +126,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 intent.setType("Text/plain");
                 String Body = "Временно не работает/В разработке";
                 intent.putExtra(Intent.EXTRA_TEXT, Body);
@@ -147,44 +134,6 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             }
         });
     }
-
-//    public void getData() {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://a0571908.xsph.ru/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        ApiService api = retrofit.create(ApiService.class);
-//        api.getCategoryDetail(categoryId).enqueue(new Callback<CategoryDetail>() {
-//            @Override
-//            public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
-//                Log.e("onResponse sound", "code: " + response.code());
-//                Log.e("onResponse sound", "string: " + response.toString());
-//                if (response.isSuccessful()) {
-//                    if (response.body() != null) {
-//                        Log.e("Response Body", "Success");
-//                        for (int i = 0; i<=response.body().audios.size(); i++){
-//                            if(response.body().audios.get(i).id == mSoundsId){
-//                                testUri = Uri.parse(response.body().audios.get(i).audio_file);
-//                            }else{
-//                                testUri = Uri.parse("");
-//                            }
-//                        }
-//                    } else {
-//                        Log.e("Response Body", "Null");
-//
-//                    }
-//                } else {
-//                    Log.e("not successful", "fail");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CategoryDetail> call, Throwable t) {
-//                Log.e("PlayerActivity", t.toString());
-//            }
-//        });
-//    }
 
     @Override
     protected void onStart() {
@@ -237,10 +186,10 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
     }
 
     private void prevBtnClicked() {
-            if(position == 0){
-                Toast.makeText(getApplicationContext(), "Это первая медитация", Toast.LENGTH_LONG).show();
-            }else
-                position-=1;
+        if (position == 0) {
+            Toast.makeText(getApplicationContext(), "Это первая медитация", Toast.LENGTH_LONG).show();
+        } else
+            position -= 1;
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
             mediaPlayer.stop();
@@ -327,29 +276,30 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
     }
 
     private void nextBtnClicked() {
-        if(position == urlList.size()-1){
+        if (position == urlList.size() - 1) {
             Toast.makeText(this, "Это последняя медитация в данной категории", Toast.LENGTH_LONG).show();
 
-        }else{
+        } else {
 
-            position+=1;
-        url = getIntent().getStringExtra("sound");
-        Log.e("POSITSIYA", position + "");
-        Log.e("SSYLKA", url);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(urlList.get(position).audio_file);
-            songName.setText(urlList.get(position).name);
-            Picasso.get().load(urlList.get(position).picture).resize(50, 50).into(imageOfSongs);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+            position += 1;
+            url = getIntent().getStringExtra("sound");
+            Log.e("POSITSIYA", position + "");
+            Log.e("SSYLKA", url);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            try {
+                mediaPlayer.stop();
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(urlList.get(position).audio_file);
+                songName.setText(urlList.get(position).name);
+                Picasso.get().load(urlList.get(position).picture).resize(50, 50).into(imageOfSongs);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+            }
+
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
         }
-
-        seekBar.setMax(mediaPlayer.getDuration() / 1000);}
 
 //        if (mediaPlayer.isPlaying()) {
 //            mediaPlayer.stop();
@@ -508,14 +458,6 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         seekBar = findViewById(R.id.seek_bar);
     }
 
-    //убрал Нурс-пурс
-//    private void metaData(String url) {
-//        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-//        retriever.setDataSource(url);
-//        int durationTotal = Integer.parseInt(listSong.get(position).getDuration()) / 1000;
-//        totalDuration.setText(formattedTime(durationTotal));
-//    }
-
     public void ImageAnimation(Context context, ImageView imageView, Bitmap bitmap) {
         Animation animOut = AnimationUtils.loadAnimation(context, android.R.anim.fade_out);
         Animation animIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
@@ -564,37 +506,5 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         onBackPressed();
     }
 
-//    public void getData() {
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://a0571908.xsph.ru/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        int CategoryId = getIntent().getIntExtra("categoryId", 0);
-//        Log.e("CATEGORY ID", CategoryId + "");
-//
-//        ApiService api = retrofit.create(ApiService.class);
-//        api.getCategoryDetail(CategoryId).enqueue(new Callback<CategoryDetail>() {
-//            @Override
-//            public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
-//                Log.e("onResponse 1", "code: " + response.code());
-//                Log.e("onResponse 1", "string: " + response.toString());
-//                Log.e("work 1", "code: " + response.body().audios);
-//                Log.e("Response", String.valueOf(response.body().audios));
-//                initData(response.body().audios);
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<CategoryDetail> call, Throwable t) {
-//                Log.e("onResponse", t.toString());
-//            }
-//        });
-//    }
-//
-//    private void initData(List<CategoryDetail.Audio> audios) {
-//        urlList.clear();
-//        urlList.addAll(audios);
-//
-//    }
 
 }
