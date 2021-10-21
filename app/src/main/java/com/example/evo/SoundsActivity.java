@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evo.apiShmapi.ApiService;
 import com.example.evo.apiShmapi.CategoryDetail;
-import com.example.evo.apiShmapi.CategoryList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -37,6 +38,10 @@ public class SoundsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound);
         recyclerView = findViewById(R.id.recyclerView);
+        ImageView mRandomImage = findViewById(R.id.random_imageView);
+        int[] images = {R.drawable.rectangle_forest, R.drawable.rectangle_mountains, R.drawable.rectangle_desert, R.drawable.rectangle_hills};
+        Random random = new Random();
+        mRandomImage.setImageResource(images[random.nextInt(images.length)]);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -55,8 +60,6 @@ public class SoundsActivity extends AppCompatActivity {
                 intent.putExtra("sound", item.audio_file);
                 intent.putExtra("position", position);
                 intent.putExtra("categoryId", mMainId);
-
-
 
                 startActivity(intent);
             }
@@ -85,7 +88,7 @@ public class SoundsActivity extends AppCompatActivity {
                 Log.e("work", "code: " + response.body().audios);
                 interceptor.level(HttpLoggingInterceptor.Level.BODY);
                 initData(response.body().audios);
-                Log.e("Размер листа", mList.size()+"");
+                Log.e("Размер листа", mList.size() + "");
             }
 
             @Override
