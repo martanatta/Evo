@@ -102,6 +102,9 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
                     int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
                     seekBar.setProgress(mCurrentPosition);
                     playedDuration.setText(formattedTime(mCurrentPosition));
+                    int durationTotal = mediaPlayer.getDuration() / 1000;
+//                  int durationTotal = Integer.parseInt(String.valueOf(listSong.get(position)));
+                    totalDuration.setText(formattedTime(durationTotal));
                 }
                 handler.postDelayed(this, 1000);
             }
@@ -325,7 +328,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
 
     private void nextBtnClicked() {
         if(position == urlList.size()-1){
-            Toast.makeText(this, "Это последняя песня в данной категории", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Это последняя медитация в данной категории", Toast.LENGTH_LONG).show();
 
         }else{
 
@@ -480,6 +483,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             mediaPlayer.prepare();
             songName.setText(urlList.get(position).name);
             Picasso.get().load(urlList.get(position).picture).resize(350, 350).into(imageOfSongs);
+            mediaPlayer.getDuration();
             mediaPlayer.start();
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
