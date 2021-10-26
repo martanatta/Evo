@@ -1,5 +1,6 @@
 package com.example.evo;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.example.evo.EditProfileActivity.Name;
 
 import android.content.Context;
@@ -24,6 +25,8 @@ import com.example.evo.apiShmapi.CategoryList;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,12 +50,8 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_main, container, false);
-
         mList = new ArrayList<>();
-
         TextView nameSP = v.findViewById(R.id.text_name_SP);
-        settings = getContext().getSharedPreferences(prefsFiles, Context.MODE_PRIVATE);
-        token = settings.getString("token", "token");
         nameSP.setText(Name);
         getData();
         return v;
@@ -83,18 +82,30 @@ public class MainFragment extends Fragment {
     }
 
     public void getData() {
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://a0571908.xsph.ru/")
+                .baseUrl("http://143.198.111.199/")
+        .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        settings = getContext().getSharedPreferences(prefsFiles, MODE_PRIVATE);
+        token = settings.getString("token", "token");
+        Log.e("Настоящий токен", token);
+
+
         ApiService api = retrofit.create(ApiService.class);
-        api.getCategoryList("Bearer" + token).enqueue(new Callback<List<CategoryList>>() {
+        api.getCategoryList("Bearer " + token).enqueue(new Callback<List<CategoryList>>() {
             @Override
             public void onResponse(Call<List<CategoryList>> call, Response<List<CategoryList>> response) {
                 Log.e("onResponse main", "code: " + response.code());
                 Log.e("onResponse main", "string: " + response.toString());
                 Log.e("token main", token);
+                interceptor.level(HttpLoggingInterceptor.Level.BODY);
                 if (response.isSuccessful()) {
                     initData(response.body());
                 } else {

@@ -54,7 +54,6 @@ public class SoundsActivity extends AppCompatActivity {
             public void onClick(int position) {
                 CategoryDetail.Audio item = mList.get(position);
                 Log.e("ПОЗИЦИЯ", position + "");
-
                 Intent intent = new Intent(SoundsActivity.this, PlayerActivity.class);
                 intent.putExtra("category_id", mMainId);
                 intent.putExtra("sound", item.audio_file);
@@ -75,7 +74,7 @@ public class SoundsActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://a0571908.xsph.ru/")
+                .baseUrl("http://143.198.111.199/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

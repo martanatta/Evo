@@ -17,6 +17,8 @@ import com.example.evo.apiShmapi.ApiService;
 import com.example.evo.apiShmapi.TokenObtainPair;
 import com.example.evo.apiShmapi.TokenRefresh;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,8 +111,13 @@ public class LogInActivity extends AppCompatActivity {
         password = EdTPassword.getText().toString();
         TokenObtainPair tokenObtainPair = new TokenObtainPair(email, password);
 
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://a0571908.xsph.ru/")
+                .baseUrl("http://143.198.111.199/")
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
@@ -129,8 +136,10 @@ public class LogInActivity extends AppCompatActivity {
                     SharedPreferences.Editor prefEditor = settings.edit();
                     String token = response.body().getAccess();
 
+                    interceptor.level(HttpLoggingInterceptor.Level.BODY);
+
                     prefEditor.putString("token", token);
-                    prefEditor.commit();
+                    prefEditor.apply();
                 } else {
                     //Log.e("token", response.body().getAccess());
                 }

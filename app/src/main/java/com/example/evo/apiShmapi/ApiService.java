@@ -11,12 +11,11 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
-    @GET("/categories/")
+    @GET("categories/")
     Call<List<CategoryList>> getCategoryList(@Header("Authorization") String token);
 
     @GET("/categories/{id}/")
     Call<CategoryDetail> getCategoryDetail(@Path("id") int audioId);
-    @GET("/categories/")
 
     @POST("/auth/jwt/create/")
     Call<TokenRefresh> logIn(@Body TokenObtainPair tokenObtainPair);
