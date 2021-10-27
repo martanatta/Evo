@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getId()) {
                     case 1:
-                        fragment = new MainFragment();
+                        fragment = new SoundsFragment();
                         break;
                     case 2:
-                        fragment = new SoundsFragment();
+                        fragment = new MainFragment();
                         break;
                     case 3:
                         fragment = new ProfileFragment();
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 loadFragment(fragment);
             }
         });
-        bottomNavigation.show(1, true);
+        bottomNavigation.show(2, true);
 
         bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override

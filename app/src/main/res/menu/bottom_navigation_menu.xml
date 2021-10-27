@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/firstFragment"
-        android:icon="@drawable/ic_bn_home"
+        android:icon="@drawable/ic_bn_music"
         android:title="Home" />
     <item
         android:id="@+id/secondFragment"
-        android:icon="@drawable/ic_bn_music"
+        android:icon="@drawable/ic_bn_home"
         android:title="Sounds" />
     <item
         android:id="@+id/thirdFragment"
