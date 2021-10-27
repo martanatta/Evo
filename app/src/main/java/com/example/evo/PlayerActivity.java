@@ -131,11 +131,13 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                intent.setType("Text/plain");
-                String Body = "Временно не работает/В разработке";
-                intent.putExtra(Intent.EXTRA_TEXT, Body);
-                startActivity(Intent.createChooser(intent, "Share"));
+                Intent shareIntent = new Intent(Intent.ACTION_VIEW);
+                shareIntent.setData(Uri.parse("https://evoschool.ru/"));
+                startActivity(shareIntent);
+//                intent.setType("Text/plain");
+//                String Body = "Временно не работает/В разработке";
+//                intent.putExtra(Intent.EXTRA_TEXT, Body);
+//                startActivity(Intent.createChooser(intent, "Share"));
             }
         });
     }
@@ -201,7 +203,11 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             mediaPlayer.reset();
             mediaPlayer.setDataSource(urlList.get(position).audio_file);
             songName.setText(urlList.get(position).name);
-            Picasso.get().load(urlList.get(position).picture).resize(350, 350).into(imageOfSongs);
+            if(urlList.get(position).picture == null){
+                Picasso.get().load(R.drawable.circle_forest);
+            }else{
+                Picasso.get().load(urlList.get(position).picture).resize(350, 350).into(imageOfSongs);
+            }
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (IOException e) {
@@ -296,7 +302,11 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
                 mediaPlayer.reset();
                 mediaPlayer.setDataSource(urlList.get(position).audio_file);
                 songName.setText(urlList.get(position).name);
-                Picasso.get().load(urlList.get(position).picture).resize(50, 50).into(imageOfSongs);
+                if(urlList.get(position).picture == null){
+                    Picasso.get().load(R.drawable.circle_forest);
+                }else{
+                    Picasso.get().load(urlList.get(position).picture).resize(350, 350).into(imageOfSongs);
+                }
                 mediaPlayer.prepare();
                 mediaPlayer.start();
             } catch (IOException e) {
