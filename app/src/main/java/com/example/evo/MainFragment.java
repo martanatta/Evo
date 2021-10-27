@@ -99,7 +99,7 @@ public class MainFragment extends Fragment {
 
 
         ApiService api = retrofit.create(ApiService.class);
-        api.getCategoryList("Bearer " + token).enqueue(new Callback<List<CategoryList>>() {
+        api.getCategoryList("JWT " + token).enqueue(new Callback<List<CategoryList>>() {
             @Override
             public void onResponse(Call<List<CategoryList>> call, Response<List<CategoryList>> response) {
                 Log.e("onResponse main", "code: " + response.code());

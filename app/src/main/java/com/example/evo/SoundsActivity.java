@@ -1,6 +1,7 @@
 package com.example.evo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,9 @@ public class SoundsActivity extends AppCompatActivity {
     public static List<CategoryDetail.Audio> mList = new ArrayList<>();
     private int mMainId;
     int mTrackPosition;
+    SharedPreferences settings;
+    String prefsFiles = "Account";
+    String token = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +83,12 @@ public class SoundsActivity extends AppCompatActivity {
                 .client(client)
                 .build();
 
+        settings = getSharedPreferences(prefsFiles, MODE_PRIVATE);
+        token = settings.getString("token", "token");
+        Log.e("Настоящий токен", token);
+
         ApiService api = retrofit.create(ApiService.class);
-        api.getCategoryDetail(mMainId).enqueue(new Callback<CategoryDetail>() {
+        api.getCategoryDetail("JWT " + token, mMainId).enqueue(new Callback<CategoryDetail>() {
             @Override
             public void onResponse(Call<CategoryDetail> call, Response<CategoryDetail> response) {
                 Log.e("onResponse", "code: " + response.code());

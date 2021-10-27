@@ -15,7 +15,7 @@ public interface ApiService {
     Call<List<CategoryList>> getCategoryList(@Header("Authorization") String token);
 
     @GET("/categories/{id}/")
-    Call<CategoryDetail> getCategoryDetail(@Path("id") int audioId);
+    Call<CategoryDetail> getCategoryDetail(@Header("Authorization") String token, @Path("id") int audioId);
 
     @POST("/auth/jwt/create/")
     Call<TokenRefresh> logIn(@Body TokenObtainPair tokenObtainPair);
