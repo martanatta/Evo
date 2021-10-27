@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.evo.apiShmapi.CategoryDetail;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
     private Thread playThread, nextThread, prevThread;
     public static List<CategoryDetail.Audio> urlList = new ArrayList<>();
     private String url;
+    ShapeableImageView shapeableImageView;
+    String mNull;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,8 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
 
         Log.e("PlayerActivity", url);
         Log.e("List song size", listSong.size() + "");
+
+        mNull = "null";
 
         initViews();
         getIntentMethod();
@@ -432,7 +437,11 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             mediaPlayer.setDataSource(urlList.get(position).audio_file);
             mediaPlayer.prepare();
             songName.setText(urlList.get(position).name);
-            Picasso.get().load(urlList.get(position).picture).resize(350, 350).into(imageOfSongs);
+            if(urlList.get(position).picture == null){
+                Picasso.get().load(R.drawable.circle_forest);
+            }else{
+                Picasso.get().load(urlList.get(position).picture).resize(350, 350).into(imageOfSongs);
+            }
             mediaPlayer.getDuration();
             mediaPlayer.start();
         } catch (IOException e) {
