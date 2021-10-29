@@ -42,8 +42,12 @@ public class SoundsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound);
         recyclerView = findViewById(R.id.recyclerView);
+
         ImageView mRandomImage = findViewById(R.id.random_imageView);
-        int[] images = {R.drawable.rectangle_forest, R.drawable.rectangle_mountains, R.drawable.rectangle_desert, R.drawable.rectangle_hills};
+        int[] images = {R.drawable.rectangle_forest,
+                R.drawable.rectangle_mountains,
+                R.drawable.rectangle_desert,
+                R.drawable.rectangle_hills};
         Random random = new Random();
         mRandomImage.setImageResource(images[random.nextInt(images.length)]);
 

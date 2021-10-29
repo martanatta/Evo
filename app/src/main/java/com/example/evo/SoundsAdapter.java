@@ -18,6 +18,7 @@ import com.example.evo.apiShmapi.CategoryDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHolderSounds> {
     Context mContext;
@@ -43,6 +44,12 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolderSounds holder, @SuppressLint("RecyclerView") int position) {
         holder.file_name.setText(mFiles.get(position).name);
         Picasso.get().load(mFiles.get(position).picture).into(holder.album_art);
+        int[] images = {R.drawable.rectangle_forest,
+                R.drawable.rectangle_mountains,
+                R.drawable.rectangle_desert,
+                R.drawable.rectangle_hills};
+        Random random = new Random();
+        holder.album_art.setImageResource(images[random.nextInt(images.length)]);
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

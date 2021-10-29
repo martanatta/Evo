@@ -448,7 +448,13 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
             mediaPlayer.prepare();
             songName.setText(urlList.get(position).name);
             if(urlList.get(position).picture == null){
-                Picasso.get().load(R.drawable.circle_forest);
+                int[] images = {R.drawable.circle_forest,
+                        R.drawable.circle_mountains,
+                        R.drawable.circle_desert,
+                        R.drawable.circle_hills};
+                Random random = new Random();
+                imageOfSongs.setImageResource(images[random.nextInt(images.length)]);
+                Picasso.get().load(String.valueOf(imageOfSongs));
             }else{
                 Picasso.get().load(urlList.get(position).picture).resize(350, 350).into(imageOfSongs);
             }
