@@ -13,10 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.evo.LogInActivity;
 import com.example.evo.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,9 +20,6 @@ import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
     Button btnRegister;
-    FirebaseAuth mAuth;
-    FirebaseDatabase db;
-    DatabaseReference users;
 
     EditText EdTName;
     EditText EdTEmail;
