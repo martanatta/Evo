@@ -123,27 +123,5 @@ public class MainFragment extends Fragment {
         mList.clear();
         mList.addAll(body);
         listItemAdapter.notifyDataSetChanged();
-
-//        MedID = new ArrayList<Integer>();
-//        for (CategoryList c : mList) {
-//            if (c.id > 0) {
-//                MedID.add(c.id);
-//                globalID = c.id;
-//            }
-//        }
-//        Log.e("sus", MedID.size() + "");
-//        Log.e("sus1", MedID.toString());
-//        Log.e("sus2", globalID + "");
-
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        mList.add(new CategoryList("Тело света", "Развитие личности через развитие знергетического  поля.", R.drawable.card_1, "начать"));
-//        mList.add(new CategoryList(("Сакральная геометрия–Мандалы", "Изменение сознания с помощью мандалов и улучшение качества жизни.", R.drawable.card_2, "начать"));
-//        mList.add(new CategoryList(("Энергетические практики", "Медитации, основанные на биоэнергетике и экстрасенсорике человека.", R.drawable.card_3, "начать"));
-//        mList.add(new CategoryList(("Предназначение", "Поможет найти своё место в жизни и быть полезным своим близким.", R.drawable.card_4, "начать"));
-//    }
     }
 }
