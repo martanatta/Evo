@@ -6,7 +6,7 @@
     android:background="#0B5563"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".SoundsActivity">
+    tools:context="kg.evoschool.SoundsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

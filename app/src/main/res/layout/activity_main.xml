@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#0B5563"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context="kg.evoschool.MainActivity">
 
     <FrameLayout
         android:id="@+id/frame_layout"

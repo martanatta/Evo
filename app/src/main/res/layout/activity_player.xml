@@ -8,7 +8,7 @@
     android:background="#0B5563"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".PlayerActivity">
+    tools:context="kg.evoschool.PlayerActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

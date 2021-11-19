@@ -6,7 +6,7 @@
     android:background="#0B5563"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".ProfileFragment">
+    tools:context="kg.evoschool.ProfileFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

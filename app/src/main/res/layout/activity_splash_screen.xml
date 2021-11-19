@@ -6,7 +6,7 @@
     android:background="#0B5563"
     android:orientation="vertical"
     android:padding="40dp"
-    tools:context=".SplashScreenActivity"
+    tools:context="kg.evoschool.SplashScreenActivity"
     tools:ignore="ContentDescription">
 
     <ImageView

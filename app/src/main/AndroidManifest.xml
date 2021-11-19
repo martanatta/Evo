@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kg.evo">
+    package="kg.evoschool">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
@@ -17,16 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Evo"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditProfileActivity" />
+        <activity android:name="kg.evoschool.EditProfileActivity" />
         <activity
-            android:name=".RegUser.SignUpActivity"
+            android:name=".Api.SignUpActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".LogInSignUpActivity" />
-        <activity android:name=".PlayerActivity" />
-        <activity android:name=".SoundsActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LogInActivity" />
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name="kg.evoschool.LogInSignUpActivity" />
+        <activity android:name="kg.evoschool.PlayerActivity" />
+        <activity android:name="kg.evoschool.SoundsActivity" />
+        <activity android:name="kg.evoschool.MainActivity" />
+        <activity android:name="kg.evoschool.LogInActivity" />
+        <activity android:name="kg.evoschool.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

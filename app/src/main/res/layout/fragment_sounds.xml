@@ -6,7 +6,7 @@
     android:background="#0B5563"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".SoundsFragment">
+    tools:context="kg.evoschool.SoundsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
